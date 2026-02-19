@@ -1,0 +1,44 @@
+/* 1️⃣ ALL @import MUST BE AT THE VERY TOP */
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Tenor+Sans&family=Inter:wght@300;400&display=swap');
+
+/* 2️⃣ CSS VARIABLES */
+:root {
+  --beejam-brown: #302617;
+  --beejam-beige: #f4ecdf;
+  --beejam-clay: #a68a64;
+  --beejam-forest: #2d3a28;
+}
+
+/* 3️⃣ BASE STYLES */
+body {
+  background: var(--beejam-beige);
+  color: var(--beejam-brown);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+
+/* 4️⃣ TYPOGRAPHY */
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+h3, h4 {
+  font-family: 'Inter', sans-serif;
+}
+
+/* 5️⃣ FLIP CARD HELPERS */
+.perspective {
+  perspective: 1200px;
+}
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
