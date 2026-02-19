@@ -23,6 +23,23 @@ Dead soil must be supported.
 Living soil supports itself.
     `,
   },
+  rhythms: {
+    title: "Nakshatras & Rain",
+    text: `
+Traditional Indian agriculture followed observational calendars.
+
+Farmers tracked rainfall patterns,
+soil moisture,
+wind behavior,
+and celestial markers like Nakshatras.
+
+These were not religious practices,
+but long-term empirical observations.
+
+Modern systems replaced observation with schedules.
+The loss of local listening reduced resilience to climate variation.
+    `,
+  },
 };
 
 export default function KnowledgeArticle() {
