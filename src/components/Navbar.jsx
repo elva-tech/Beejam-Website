@@ -19,6 +19,8 @@ export default function Navbar() {
     { name: 'Trust', path: '/transparency' },
     { name: 'Journal', path: '/journal' },
     { name: "Foundations", path: "/foundations" },
+    { name: "Founder", path: "/steward" },
+
   ];
 
   /* scroll state (NO animation here) */

@@ -15,6 +15,7 @@ import Journal from './pages/Journal';
 import Contact from './pages/Contact';
 import Foundations from './sections/Foundations';
 import FoundationArticle from './sections/FoundationArticle';
+import Steward from './pages/Steward';
 
 export default function App() {
   return (
@@ -37,7 +38,7 @@ export default function App() {
           <Route path="/foundations" element={<Foundations />} />
           <Route path="/foundations/:slug" element={<FoundationArticle />} />
 
-
+        <Route path="/steward" element={<Steward />} />
         </Routes>
       </div>
     </SmoothScroll>

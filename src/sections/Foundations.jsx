@@ -6,14 +6,15 @@ const people = [
     desc: "The philosophy of doing nothing.",
     slug: "fukuoka",
     image:
-      "https://tse4.mm.bing.net/th/id/OIP.c0nFspyj6womy81bfhaxZwHaD4?pid=Api&P=0&h=180",
+      "/image-1.png",
   },
   {
     title: "Subhash Palekar",
     desc: "Zero budget, infinite life.",
     slug: "palekar",
     image:
-      "https://tse1.mm.bing.net/th/id/OIP.o0aiDpDSqHFGArAk1uQCoQHaEK?pid=Api&P=0&h=180",
+            "/image-2.png",
+
   },
 ];
 
