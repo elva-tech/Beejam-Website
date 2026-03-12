@@ -43,7 +43,9 @@ export default function Steward() {
               />
               <div className="absolute inset-0 border-[10px] md:border-[20px] border-beejam-beige/10 pointer-events-none" />
             </motion.div>
-            <p className="mt-4 font-sans text-[10px] uppercase tracking-[0.4em] opacity-30 text-center lg:text-left">
+                    <p className="font-heritage text-3xl text-beejam-brown tracking-tighter  text-center">Sai Krishna E.L </p>
+
+            <p className="mt-4 font-sans text-[10px] uppercase tracking-[0.4em] opacity-30 text-center  lg:text-left">
               Founder & Architect
             </p>
           </div>
