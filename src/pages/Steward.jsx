@@ -28,26 +28,35 @@ export default function Steward() {
         {/* MAIN CONTENT: IMAGE & STORY */}
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           
-          {/* Left: The Image - FIXED STICKY BEHAVIOR */}
+          {/* Left: The Image - FIXED STICKY & MOBILE COLOR */}
           <div className="lg:col-span-5 lg:sticky lg:top-32 mb-12 lg:mb-0">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2 }}
-              className="aspect-[3/4] overflow-hidden shadow-2xl relative rounded-sm"
+              className="aspect-[3/4] overflow-hidden shadow-2xl relative rounded-sm group cursor-pointer"
             >
-              <img 
+              <motion.img 
                 src="/image-3.png" 
-                alt="The founder" 
-                className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-1000"
+                alt="Sai Krishna E.L" 
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                // Mobile color fix: stays black/white until tapped or hovered
+                initial={{ filter: 'grayscale(100%) brightness(90%)' }}
+                whileHover={{ filter: 'grayscale(0%) brightness(100%)' }}
+                whileTap={{ filter: 'grayscale(0%) brightness(100%)' }}
               />
-              <div className="absolute inset-0 border-[10px] md:border-[20px] border-beejam-beige/10 pointer-events-none" />
+              {/* Minimalist Border - Hairline thin */}
+              <div className="absolute inset-0 border-[1px] border-beejam-brown/10 pointer-events-none" />
             </motion.div>
-                    <p className="font-heritage text-3xl text-beejam-brown tracking-tighter  text-center">Sai Krishna E.L </p>
 
-            <p className="mt-4 font-sans text-[10px] uppercase tracking-[0.4em] opacity-30 text-center  lg:text-left">
-              Founder & Architect
-            </p>
+            <div className="mt-8 text-center lg:text-left">
+               <h2 className="font-heritage text-3xl text-beejam-brown tracking-tighter mb-1">
+                 Sai Krishna E.L
+               </h2>
+               <p className="font-sans text-[10px] uppercase tracking-[0.4em] opacity-40">
+                 Founder & Architect
+               </p>
+            </div>
           </div>
 
           {/* Right: The Narrative */}
@@ -59,18 +68,15 @@ export default function Steward() {
                   Beejam was born from a moment of profound realization: that our modern food system is built on a foundation of geological dishonesty. We have spent the last century extracting health from the future to pay for the convenience of the present.
                 </p>
                 <p>
-                  I saw our soil—once a vibrant, living archive of biological intelligence—transformed into a sterile, chemical-dependent medium. I saw the "Empty Food" crisis firsthand: fruits that look perfect on a shelf but offer nothing to the human cellular structure.
+                  I saw our soil—once a vibrant, living archive of biological intelligence—transformed into a sterile, chemical-dependent medium. I saw the "Empty Food" crisis firsthand.
                 </p>
               </div>
             </section>
 
             <section className="bg-beejam-brown text-beejam-beige p-8 md:p-16 rounded-sm shadow-xl relative overflow-hidden">
-              {/* Subtle background texture/glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-beejam-clay/10 blur-3xl rounded-full -mr-16 -mt-16" />
-              
               <h3 className="font-heritage text-2xl md:text-3xl mb-6 text-beejam-clay text-center uppercase tracking-[0.2em]">Why Beejam?</h3>
               <p className="font-premium text-xl md:text-3xl italic leading-tight text-center opacity-90">
-                "I am doing this because there is no 'Plan B' for the soil. Beejam is my response to a biological debt. We are re-learning the art of productive silence—allowing the earth to heal so that it may, in turn, heal us."
+                "I am doing this because there is no 'Plan B' for the soil. Beejam is my response to a biological debt."
               </p>
             </section>
 
@@ -78,19 +84,32 @@ export default function Steward() {
               <h3 className="font-heritage text-3xl mb-8 text-beejam-brown">The Commitment</h3>
               <div className="font-premium text-lg md:text-xl opacity-75 leading-relaxed space-y-8">
                 <p>
-                  Every acre we steward is a laboratory for the return of life. We are not just growing vegetables; we are rebuilding the carbon-sponge of the planet. We are restoring the relationship between the human hand and the indigenous seed.
-                </p>
-                <p>
-                  This is my life's work—not to command the land, but to serve as its custodian, ensuring that the legacy we leave behind is as fertile as the one we found.
+                  Every acre we steward is a laboratory for the return of life. We are rebuilding the carbon-sponge of the planet. We are restoring the relationship between the human hand and the indigenous seed.
                 </p>
               </div>
               
               <div className="mt-20 flex items-center gap-6">
                  <div className="h-[1px] w-16 bg-beejam-clay/40" />
                  <div>
-                    <p className="font-heritage text-3xl text-beejam-brown tracking-tighter italic">The Founder</p>
+                    <p className="font-heritage text-4xl text-beejam-brown tracking-tighter italic">The Founder</p>
                     <p className="font-sans text-[9px] uppercase tracking-[0.5em] mt-1 opacity-40 text-beejam-brown">Beejam Agriculture Protocol</p>
                  </div>
+              </div>
+
+              {/* CONTACT SECTION: THE PERSONAL CHANNEL */}
+              <div className="mt-24 pt-12 border-t border-beejam-brown/10 grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                  <p className="font-sans text-[10px] uppercase tracking-[0.4em] opacity-40 mb-4">Direct Channel</p>
+                  <a href="mailto:founder@beejam.in" className="font-premium text-l hover:text-beejam-clay transition-colors block">
+                    beejam.organics@gmail.com
+                  </a>
+                </div>
+                <div>
+                  <p className="font-sans text-[10px] uppercase tracking-[0.4em] opacity-40 mb-4">The Connection</p>
+                  <a href="tel:+91XXXXXXXXXX" className="font-premium text-l hover:text-beejam-clay transition-colors block tracking-widest">
+                    +91 96111 49957
+                  </a>
+                </div>
               </div>
             </section>
           </div>
