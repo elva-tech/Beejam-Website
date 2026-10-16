@@ -1,5 +1,9 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+
+const FORMSUBMIT_ENDPOINT =
+  'https://formsubmit.co/ajax/beejam.organics@gmail.com';
 
 export default function Contact() {
   const location = useLocation();
@@ -10,15 +14,15 @@ export default function Contact() {
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  // ✅ NEW (dropdown state)
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const options = [
-    "Family seeking honest food",
-    "Farmer seeking soil recovery",
-    "Urban Landowner"
+    'Family seeking honest food',
+    'Farmer seeking soil recovery',
+    'Urban Landowner',
   ];
 
   useEffect(() => {
@@ -27,7 +31,6 @@ export default function Contact() {
     }
   }, [location]);
 
-  // ✅ NEW (click outside)
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -36,15 +39,22 @@ export default function Contact() {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (loading) return;
+
     setLoading(true);
+    setError('');
 
     try {
-      const res = await fetch('https://formspree.io/f/mreeqqel', {
+      const res = await fetch(FORMSUBMIT_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,16 +65,26 @@ export default function Contact() {
           Name: name,
           Phone: phone,
           Message: message,
+          _subject: `Beejam Organics enquiry — ${role}`,
+          _template: 'table',
         }),
       });
 
-      if (res.ok) {
-        setSubmitted(true);
-      } else {
-        alert('Submission failed. Please try again.');
+      const result = await res.json();
+
+      if (!res.ok || result?.success === false) {
+        throw new Error(
+          result?.message || `FormSubmit responded with ${res.status}`
+        );
       }
+
+      setSubmitted(true);
+      setName('');
+      setPhone('');
+      setMessage('');
     } catch (err) {
-      alert('Network error. Please try again.');
+      console.error('Form submission failed:', err);
+      setError('Submission failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -73,7 +93,6 @@ export default function Contact() {
   return (
     <div className="pt-32 pb-20 px-6 bg-beejam-brown text-beejam-beige min-h-screen">
       <div className="max-w-3xl mx-auto">
-
         <h1 className="font-heritage text-6xl mb-8">
           Join the Movement
         </h1>
@@ -89,29 +108,37 @@ export default function Contact() {
             <p className="font-heritage text-3xl mb-4">
               Intent received.
             </p>
+
             <p className="font-premium text-xl opacity-80">
               We’ll reach out after reviewing your message.
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-12">
-
-            {/* ROLE (UPDATED ONLY THIS PART) */}
-            <div className="border-b border-beejam-beige/30 pb-4" ref={dropdownRef}>
+            {/* ROLE */}
+            <div
+              className="border-b border-beejam-beige/30 pb-4"
+              ref={dropdownRef}
+            >
               <label className="block font-sans text-xs uppercase tracking-widest opacity-50 mb-2">
                 I am a
               </label>
 
-              {/* SELECT BOX */}
               <div
                 onClick={() => setOpen(!open)}
                 className="w-full cursor-pointer font-heritage text-3xl flex justify-between items-center"
               >
                 <span>{role}</span>
-                <span className={`transition-transform ${open ? 'rotate-180' : ''}`}>⇣</span>
+
+                <span
+                  className={`transition-transform ${
+                    open ? 'rotate-180' : ''
+                  }`}
+                >
+                  ⇣
+                </span>
               </div>
 
-              {/* DROPDOWN */}
               {open && (
                 <div className="mt-4 border border-beejam-beige/20 rounded-xl overflow-hidden bg-beejam-brown shadow-xl">
                   {options.map((opt) => (
@@ -121,12 +148,11 @@ export default function Contact() {
                         setRole(opt);
                         setOpen(false);
                       }}
-                      className={`px-6 py-4 font-premium text-lg cursor-pointer transition-all 
-                        ${
-                          role === opt
-                            ? 'bg-beejam-clay text-beejam-brown'
-                            : 'hover:bg-beejam-beige hover:text-beejam-brown'
-                        }`}
+                      className={`px-6 py-4 font-premium text-lg cursor-pointer transition-all ${
+                        role === opt
+                          ? 'bg-beejam-clay text-beejam-brown'
+                          : 'hover:bg-beejam-beige hover:text-beejam-brown'
+                      }`}
                     >
                       {opt}
                     </div>
@@ -140,6 +166,7 @@ export default function Contact() {
               <label className="block font-sans text-xs uppercase tracking-widest opacity-50 mb-2">
                 Full Name
               </label>
+
               <input
                 type="text"
                 required
@@ -155,6 +182,7 @@ export default function Contact() {
               <label className="block font-sans text-xs uppercase tracking-widest opacity-50 mb-2">
                 Phone Number
               </label>
+
               <input
                 type="tel"
                 required
@@ -170,6 +198,7 @@ export default function Contact() {
               <label className="block font-sans text-xs uppercase tracking-widest opacity-50 mb-2">
                 Your Message
               </label>
+
               <textarea
                 rows={4}
                 value={message}
@@ -194,10 +223,15 @@ export default function Contact() {
               {loading ? 'Sending…' : 'Submit Intent'}
             </button>
 
+            {error && (
+              <p className="text-sm text-center" role="alert">
+                {error}
+              </p>
+            )}
+
             <p className="text-xs text-center opacity-40 uppercase tracking-widest">
               Messages are securely delivered to beejam.organics@gmail.com
             </p>
-
           </form>
         )}
       </div>
